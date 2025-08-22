@@ -3,9 +3,694 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Math Skills Trainer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 16px;
+            position: relative;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center fixed;
+            background-size: cover;
+            filter: brightness(0.7) blur(8px);
+            z-index: -1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 28px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 16px;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        h2 {
+            color: white;
+            margin: 25px 0 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .operation-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .operation-btn {
+            padding: 16px 12px;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .operation-btn:active {
+            transform: scale(0.97);
+        }
+
+        .operation-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .operation-btn .icon {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+            font-weight: 300;
+        }
+
+        .problem-display {
+            font-size: 2.4rem;
+            margin: 20px 0;
+            color: white;
+            min-height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-area {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .answer-input {
+            width: 180px;
+            padding: 16px 20px;
+            font-size: 1.6rem;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            outline: none;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .answer-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .answer-input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn {
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.97);
+        }
+
+        .feedback {
+            min-height: 60px;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .correct {
+            background: rgba(46, 204, 113, 0.15);
+            border: 1px solid rgba(46, 204, 113, 0.25);
+        }
+
+        .incorrect {
+            background: rgba(231, 76, 60, 0.15);
+            border: 1px solid rgba(231, 76, 60, 0.25);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-box {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 16px 12px;
+            flex: 1;
+            margin: 0 6px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .digits-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .digits-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .digits-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .history-container {
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-correct {
+            color: #2ecc71;
+        }
+
+        .history-incorrect {
+            color: #e74c3c;
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 16px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .operation-selector {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .operation-btn {
+                padding: 14px 10px;
+                min-height: 70px;
+                font-size: 0.9rem;
+            }
+            
+            .operation-btn .icon {
+                font-size: 1.4rem;
+            }
+            
+            .problem-display {
+                font-size: 2rem;
+                padding: 16px;
+                min-height: 70px;
+                margin: 20px 0;
+            }
+            
+            .answer-input {
+                width: 160px;
+                font-size: 1.4rem;
+                padding: 14px 18px;
+            }
+            
+            .submit-btn {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+            
+            .feedback {
+                font-size: 1.1rem;
+                padding: 14px;
+                min-height: 55px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 12px;
+                margin: 20px 0;
+            }
+            
+            .stat-box {
+                margin: 0;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
+            }
+            
+            .digits-selector {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Animation for new problems */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .problem-display {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Pulse animation for correct answers */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .correct {
+            animation: pulse 0.5s ease;
+        }
+
+        /* Scrollbar styling */
+        .history-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .history-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .history-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .history-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
 </head>
 <body>
+    <div class="background"></div>
     
+    <div class="container">
+        <header>
+            <h1>Math Skills Trainer</h1>
+        </header>
+        
+        <div class="section">
+            <h2>Select Operation</h2>
+            <div class="operation-selector">
+                <button class="operation-btn active" data-operation="addition">
+                    <span class="icon">+</span>
+                    <span>Add</span>
+                </button>
+                <button class="operation-btn" data-operation="subtraction">
+                    <span class="icon">-</span>
+                    <span>Subtract</span>
+                </button>
+                <button class="operation-btn" data-operation="multiplication">
+                    <span class="icon">×</span>
+                    <span>Multiply</span>
+                </button>
+                <button class="operation-btn" data-operation="division">
+                    <span class="icon">÷</span>
+                    <span>Divide</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Number of Digits</h2>
+            <div class="digits-selector">
+                <button class="digits-btn active" data-digits="1">1 Digit</button>
+                <button class="digits-btn" data-digits="2">2 Digits</button>
+                <button class="digits-btn" data-digits="3">3 Digits</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Current Problem</h2>
+            <div class="problem-display" id="problem">
+                <!-- Problem will be displayed here -->
+            </div>
+            
+            <div class="input-area">
+                <input type="number" class="answer-input" id="answer" placeholder="Your answer" inputmode="numeric">
+                <button class="submit-btn" id="submit">
+                    <span>Check Answer</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="feedback" id="feedback">
+                <!-- Feedback will be displayed here -->
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Your Progress</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="correct">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="attempted">0</div>
+                    <div class="stat-label">Attempted</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Answer History</h2>
+            <div class="history-container" id="history">
+                <!-- History items will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const operationButtons = document.querySelectorAll('.operation-btn');
+            const digitsButtons = document.querySelectorAll('.digits-btn');
+            const problemDisplay = document.getElementById('problem');
+            const answerInput = document.getElementById('answer');
+            const submitButton = document.getElementById('submit');
+            const feedbackDisplay = document.getElementById('feedback');
+            const correctDisplay = document.getElementById('correct');
+            const attemptedDisplay = document.getElementById('attempted');
+            const historyContainer = document.getElementById('history');
+            
+            // Game state
+            let currentOperation = 'addition';
+            let currentDigits = 1;
+            let correctCount = 0;
+            let attemptedCount = 0;
+            let currentProblem = {};
+            let answerHistory = [];
+            
+            // Initialize the game
+            generateProblem();
+            updateStats();
+            
+            // Event listeners
+            operationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    operationButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentOperation = this.getAttribute('data-operation');
+                    generateProblem();
+                });
+            });
+            
+            digitsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    digitsButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDigits = parseInt(this.getAttribute('data-digits'));
+                    generateProblem();
+                });
+            });
+            
+            submitButton.addEventListener('click', checkAnswer);
+            
+            answerInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+            
+            // Prevent form submission on enter
+            answerInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+            
+            // Functions
+            function generateProblem() {
+                let num1, num2, problemText, answer;
+                
+                // Generate numbers based on digit selection
+                const min = Math.pow(10, currentDigits - 1);
+                const max = Math.pow(10, currentDigits) - 1;
+                
+                switch(currentOperation) {
+                    case 'addition':
+                        num1 = Math.floor(Math.random() * (max - min + 1)) + min;
+                        num2 = Math.floor(Math.random() * (max - min + 1)) + min;
+                        problemText = `${num1} + ${num2} = ?`;
+                        answer = num1 + num2;
+                        break;
+                    case 'subtraction':
+                        num1 = Math.floor(Math.random() * (max - min + 1)) + min;
+                        // Ensure num2 is not larger than num1 for subtraction
+                        num2 = Math.floor(Math.random() * (num1 - min + 1)) + min;
+                        problemText = `${num1} - ${num2} = ?`;
+                        answer = num1 - num2;
+                        break;
+                    case 'multiplication':
+                        num1 = Math.floor(Math.random() * (max - min + 1)) + min;
+                        num2 = Math.floor(Math.random() * (max - min + 1)) + min;
+                        problemText = `${num1} × ${num2} = ?`;
+                        answer = num1 * num2;
+                        break;
+                    case 'division':
+                        // For division, we'll ensure a clean division
+                        num2 = Math.floor(Math.random() * (max - min + 1)) + min;
+                        const multiplier = Math.floor(Math.random() * (max - min + 1)) + min;
+                        num1 = num2 * multiplier;
+                        problemText = `${num1} ÷ ${num2} = ?`;
+                        answer = multiplier;
+                        break;
+                }
+                
+                currentProblem = {
+                    text: problemText,
+                    answer: answer
+                };
+                
+                problemDisplay.textContent = problemText;
+                answerInput.value = '';
+                answerInput.focus();
+                feedbackDisplay.textContent = '';
+                feedbackDisplay.className = 'feedback';
+            }
+            
+            function checkAnswer() {
+                const userAnswer = parseInt(answerInput.value);
+                
+                if (isNaN(userAnswer)) {
+                    feedbackDisplay.textContent = 'Please enter a number';
+                    feedbackDisplay.className = 'feedback incorrect';
+                    return;
+                }
+                
+                attemptedCount++;
+                
+                // Add to history
+                const historyItem = {
+                    problem: currentProblem.text,
+                    userAnswer: userAnswer,
+                    correctAnswer: currentProblem.answer,
+                    isCorrect: userAnswer === currentProblem.answer
+                };
+                
+                answerHistory.unshift(historyItem);
+                updateHistory();
+                
+                if (userAnswer === currentProblem.answer) {
+                    feedbackDisplay.textContent = 'Correct! Well done!';
+                    feedbackDisplay.className = 'feedback correct';
+                    correctCount++;
+                } else {
+                    feedbackDisplay.textContent = `Incorrect. The answer is ${currentProblem.answer}.`;
+                    feedbackDisplay.className = 'feedback incorrect';
+                }
+                
+                updateStats();
+                
+                // Generate a new problem after a short delay
+                setTimeout(generateProblem, 2000);
+            }
+            
+            function updateStats() {
+                correctDisplay.textContent = correctCount;
+                attemptedDisplay.textContent = attemptedCount;
+            }
+            
+            function updateHistory() {
+                // Keep only the last 5 history items
+                if (answerHistory.length > 5) {
+                    answerHistory = answerHistory.slice(0, 5);
+                }
+                
+                historyContainer.innerHTML = '';
+                
+                answerHistory.forEach(item => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    
+                    const problemSpan = document.createElement('span');
+                    problemSpan.textContent = item.problem.replace('?', item.userAnswer);
+                    problemSpan.style.color = 'white';
+                    
+                    const resultSpan = document.createElement('span');
+                    resultSpan.textContent = item.isCorrect ? '✓' : '✗';
+                    resultSpan.className = item.isCorrect ? 'history-correct' : 'history-incorrect';
+                    
+                    historyItem.appendChild(problemSpan);
+                    historyItem.appendChild(resultSpan);
+                    historyContainer.appendChild(historyItem);
+                });
+            }
+            
+            // Handle virtual keyboard on mobile devices
+            if ('virtualKeyboard' in navigator) {
+                answerInput.addEventListener('focus', function() {
+                    // Scroll to input when focused on mobile
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
