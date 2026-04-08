@@ -52,8 +52,8 @@ const alphabetRus = {
 function regularTextStegoPack(container, secret, key) {
     console.log('container = ' + container);
     console.log('secret = ' + secret);
-    const secret0 = secret.slice(0, Math.floor(key / 65536 * secret.length));
-    const secret1 = secret.slice(Math.floor(key / 65536 * secret.length), secret.length);
+    const secret0 = secret.slice(0, Math.floor(key * secret.length));
+    const secret1 = secret.slice(Math.floor(key * secret.length), secret.length);
     function pack0(container, secret) {
         let secretI = 0;
         const arr = container.trim().replaceAll('  ', ' ').replaceAll('\n\n', '\n').replaceAll('. ', '.\n').split('.\n');
@@ -124,7 +124,7 @@ function regularTextStegoPack(container, secret, key) {
 function regularTextStegoUnpack(container, length, key) {
     console.log('container = ' + container);
     console.log('length = ' + length);
-    const length0 = Math.floor(key / 65536 * length);
+    const length0 = Math.floor(key * length);
     const length1 = length - length0;
     function unpack0(container, length) {
         let secretI = 0;
