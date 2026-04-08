@@ -1,3 +1,3 @@
 # Project Secret In Code Steganography
 ## Not ready
-Now it only works for plain text steganography.
+It works for plain text steganography but not for js, json, css.
