@@ -1,378 +1,312 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Культурное наследие - Главная</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #1a6a9e, #0d4d80);
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            margin-right: 10px;
-            font-size: 28px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 25px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-        
-        nav ul li a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .auth-buttons {
-            display: flex;
-            align-items: center;
-        }
-        
-        .login-btn, .register-btn {
-            padding: 8px 15px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .login-btn {
-            color: white;
-            border: 1px solid white;
-            margin-right: 10px;
-        }
-        
-        .register-btn {
-            background-color: white;
-            color: #1a6a9e;
-        }
-        
-        .hero {
-            background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            color: white;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
-        
-        .hero-content {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: #1a6a9e;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: #0d4d80;
-        }
-        
-        .features {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            color: #1a6a9e;
-            font-size: 32px;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-icon {
-            font-size: 40px;
-            color: #1a6a9e;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-        
-        .feature-card p {
-            color: #666;
-        }
-        
-        footer {
-            background-color: #0d4d80;
-            color: white;
-            padding: 50px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-section h3 {
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-section ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-section ul li a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .auth-buttons {
-                margin-top: 20px;
-            }
-            
-            .hero h1 {
-                font-size: 32px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You have a secret</title>
+<style>
+/* Light Theme CSS for Steganography Tool */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    color: #1e293b;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 1.75rem;
+}
+
+/* Group Cards */
+.group {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.group:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.08);
+}
+
+.group > div:first-child {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+}
+
+/* Textareas */
+textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.75rem;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    resize: vertical;
+    background-color: #fefefe;
+    transition: all 0.2s ease;
+    color: #0f172a;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    background-color: #ffffff;
+}
+
+textarea::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Length indicator */
+#view-length1, #view-length2, #view-length3, #view-length4 {
+    font-size: 0.75rem;
+    color: #475569;
+    margin-top: -0.25rem;
+    margin-bottom: 0.75rem;
+    font-family: monospace;
+    background: #f1f5f9;
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+}
+
+/* Button Row */
+.btn-row {
+    display: flex;
+    gap: 0.75rem;
+    margin: 0.5rem 0 0.75rem 0;
+}
+
+.btn-row button {
+    flex: 1;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 0.6rem 0;
+    border-radius: 2rem;
+    font-weight: 500;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #1e293b;
+    letter-spacing: 0.3px;
+}
+
+.btn-row button:hover {
+    background: #eef2ff;
+    border-color: #3b82f6;
+    color: #1e40af;
+    transform: scale(0.98);
+}
+
+.btn-row button:active {
+    background: #e0e7ff;
+}
+
+/* View area */
+.view-area {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 0.9rem;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 120px;
+    overflow-y: auto;
+    margin: 0.5rem 0;
+    color: #0f172a;
+    background-color: #fefce8;
+    border-left: 3px solid #94a3b8;
+}
+
+/* Copy button */
+.group > button:last-child {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #334155;
+    margin-top: 0.25rem;
+}
+
+.group > button:last-child:hover {
+    background: #eef2ff;
+    border-color: #3b82f6;
+    color: #1e40af;
+}
+
+/* Special styling for the first group's length display */
+#view-length1, #view-length2, #view-length3, #view-length4 {
+    font-family: monospace;
+}
+
+/* Scrollbar styling */
+textarea::-webkit-scrollbar, .view-area::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+textarea::-webkit-scrollbar-track, .view-area::-webkit-scrollbar-track {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb, .view-area::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 860px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        gap: 1rem;
+    }
+
+    .group {
+        padding: 1.2rem;
+    }
+}
+
+/* For better readability inside textareas */
+textarea[placeholder*="Enter secret"] {
+    font-family: monospace;
+}
+
+/* Additional light accents */
+.group .btn-row button:first-child {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.group .btn-row button:first-child:hover {
+    background: #dbeafe;
+}
+
+.group .btn-row button:last-child {
+    background: #f1f5f9;
+}
+
+.group .btn-row button:last-child:hover {
+    background: #e2e8f0;
+}
+
+/* Distinguish view areas based on content */
+.view-area:empty::before {
+    content: "— no output —";
+    color: #94a3b8;
+    font-style: italic;
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-icon">🏛️</span>
-                    Культурное наследие
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#">О проекте</a></li>
-                        <li><a href="#">Внести инициативу</a></li>
-                        <li><a href="#">Календарь мероприятий, проектов</a></li>
-                        <li><a href="#">Рассказать об актах вандализма</a></li>
-                        <li><a href="#">Рассказать о памятнике</a></li>
-                        <li><a href="#">Личный кабинет</a></li>
-                        <li><a href="#">Добавить организацию</a></li>
-                        <li><a href="#">Контакты</a></li>
-                    </ul>
-                </nav>
-                <div class="auth-buttons">
-                    <a href="#" class="login-btn">Войти</a>
-                    <a href="#" class="register-btn">Регистрация</a>
-                </div>
-            </div>
-        </div>
-    </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Сохраним культурное наследие вместе</h1>
-            <p>Присоединяйтесь к нашему проекту по сохранению и восстановлению памятников культуры и истории</p>
-            <a href="#" class="btn">Принять участие</a>
+<div class="container">
+    <!-- Group 1 -->
+    <div class="group">
+        <div>Text message</div>
+        <textarea id='key1' placeholder="Enter key..."></textarea>
+        <textarea id='secret1' placeholder="Enter secret or length..." oninput="document.getElementById('view-length1').textContent = 'secret length: ' + new TextEncoder().encode(document.getElementById('secret1').value).length"></textarea>
+        <div id="view-length1">secret length: </div>
+        <textarea id='container1' placeholder="Enter container..."></textarea>
+        <div class="btn-row">
+            <button onclick="document.getElementById('view1').textContent = regularTextStegoPack(
+                document.getElementById('container1').value,
+                new TextEncoder().encode(document.getElementById('secret1').value),
+                +document.getElementById('key1').value,
+            )">Pack</button>
+            <button onclick="document.getElementById('view1').textContent = new TextDecoder().decode(regularTextStegoUnpack(
+                document.getElementById('container1').value,
+                +document.getElementById('secret1').value,
+                +document.getElementById('key1').value,
+            ))">Unpack</button>
         </div>
-    </section>
+        <div class="view-area" id="view1">View 1</div>
+        <button onclick="copyText(1)">Copy</button>
+    </div>
 
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Возможности платформы</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">💡</div>
-                    <h3>Внести инициативу</h3>
-                    <p>Предложите идею по сохранению или восстановлению объектов культурного наследия</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
-                    <h3>Календарь мероприятий</h3>
-                    <p>Узнайте о предстоящих событиях, проектах и волонтерских акциях</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚨</div>
-                    <h3>Сообщить о вандализме</h3>
-                    <p>Оповестите о случаях повреждения или разрушения памятников культуры</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏛️</div>
-                    <h3>Рассказать о памятнике</h3>
-                    <p>Поделитесь информацией о малоизвестных памятниках истории и культуры</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">👤</div>
-                    <h3>Личный кабинет</h3>
-                    <p>Отслеживайте свои обращения и участвуйте в обсуждениях</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🏢</div>
-                    <h3>Добавить организацию</h3>
-                    <p>Разместите информацию об организации, занимающейся сохранением наследия</p>
-                </div>
-            </div>
+    <!-- Group 2 -->
+    <div class="group">
+        <div>JS</div>
+        <textarea id='key2' placeholder="Enter key..."></textarea>
+        <textarea id='secret2' placeholder="Enter secret or length..."></textarea>
+        <div id="view-length2">secret length: </div>
+        <textarea id='container2' placeholder="Enter container..."></textarea>
+        <div class="btn-row">
+            <button>Pack</button>
+            <button>Unpack</button>
         </div>
-    </section>
+        <div class="view-area" id="view2">View 2</div>
+        <button onclick="copyText(2)">Copy</button>
+    </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>О проекте</h3>
-                    <p>Мы занимаемся сохранением и восстановлением объектов культурного наследия по всей стране</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Разделы сайта</h3>
-                    <ul>
-                        <li><a href="#">О проекте</a></li>
-                        <li><a href="#">Внести инициативу</a></li>
-                        <li><a href="#">Календарь мероприятий</a></li>
-                        <li><a href="#">Сообщить о вандализме</a></li>
-                        <li><a href="#">Рассказать о памятнике</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Дополнительно</h3>
-                    <ul>
-                        <li><a href="#">Личный кабинет</a></li>
-                        <li><a href="#">Добавить организацию</a></li>
-                        <li><a href="#">Контакты</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Новости</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Контакты</h3>
-                    <p>Email: info@cultural-heritage.ru</p>
-                    <p>Телефон: +7 (800) 123-45-67</p>
-                    <p>Адрес: Москва, ул. Культурная, д. 1</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>© 2023 Культурное наследие. Все права защищены.</p>
-            </div>
+    <!-- Group 3 -->
+    <div class="group">
+        <div>JSON</div>
+        <textarea id='key3' placeholder="Enter key..."></textarea>
+        <textarea id='secret3' placeholder="Enter secret or length..."></textarea>
+        <div id="view-length3">secret length: </div>
+        <textarea id='container3' placeholder="Enter container..."></textarea>
+        <div class="btn-row">
+            <button>Pack</button>
+            <button>Unpack</button>
         </div>
-    </footer>
+        <div class="view-area" id="view3">View 3</div>
+        <button onclick="copyText(3)">Copy</button>
+    </div>
+
+    <!-- Group 4 -->
+    <div class="group">
+        <div>CSS</div>
+        <textarea id='key4' placeholder="Enter key..."></textarea>
+        <textarea id='secret4' placeholder="Enter secret or length..."></textarea>
+        <div id="view-length4">secret length: </div>
+        <textarea id='container4' placeholder="Enter container..."></textarea>
+        <div class="btn-row">
+            <button>Pack</button>
+            <button>Unpack</button>
+        </div>
+        <div class="view-area" id="view4">View 4</div>
+        <button onclick="copyText(4)">Copy</button>
+    </div>
+</div>
+
+<script src="module.js"></script>
+
 </body>
 </html>
